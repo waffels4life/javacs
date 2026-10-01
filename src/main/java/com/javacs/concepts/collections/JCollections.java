@@ -53,10 +53,16 @@ public class JCollections {
      *         ArrayList  LinkedList    ...
      */
     static class LearnList<T> {
-        /*
+        /**
          * List >> keeps the collection order
          *      >> allowed duplicates
          *      >> comes with index
+         *
+         *  List
+         *  ├── Ordered
+         *  ├── Indexed
+         *  └── Allows duplicates
+         *
          */
 
         private final List<T> list = new ArrayList<>();
@@ -79,6 +85,26 @@ public class JCollections {
 
         public void clear() {
             list.clear();
+        }
+
+        public void refactor(int i, T t) {
+            list.set(i,t);
+        }
+
+        public void removingInteger() {
+            List<Integer> integerList = new ArrayList<>();
+            integerList.add(1);
+            integerList.add(2);
+            integerList.add(3);
+
+            /*
+             * Boxing/unboxing - overloading
+             * integerList.remove(1)                  >> remove index 1 >> [2]
+             * integerList.remove((Integer) 1)        >> remove value 1 >> [1]
+             * integerList.remove(Integer.valueOf(1)) >> remove value 1 >> [1]
+             */
+
+            integerList.remove(Integer.valueOf(1));
         }
     }
 }
