@@ -106,5 +106,9 @@ public class JCollections {
 
             integerList.remove(Integer.valueOf(1));
         }
+
+        public int getValueIndex(T t) {
+            return list.indexOf(t);
+        }
     }
 }
