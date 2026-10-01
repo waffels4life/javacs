@@ -1,5 +1,9 @@
 package com.javacs.concepts.collections;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class JCollections {
     /*
      * Collection: an object responsible for holding other objects.
@@ -48,4 +52,33 @@ public class JCollections {
      *              │         │          │
      *         ArrayList  LinkedList    ...
      */
+    static class LearnList<T> {
+        /*
+         * List >> keeps the collection order
+         *      >> allowed duplicates
+         *      >> comes with index
+         */
+
+        private final List<T> list = new ArrayList<>();
+
+        public void add(T t) {
+            list.add(t);
+        }
+
+        public List<T> get() {
+            return List.copyOf(list);
+        }
+
+        public boolean contains(T t) {
+            return list.contains(t);
+        }
+
+        public void remove(T t) {
+            list.remove(t);
+        }
+
+        public void clear() {
+            list.clear();
+        }
+    }
 }
