@@ -21,9 +21,6 @@ public class NotificationRunner {
                 new AppNotification()
         );
 
-        for (NotificationCenter notificationCenter : notificationCenterList) {
-            notificationService.setNotificationCenter(notificationCenter);
-            notificationService.service("Hi :D");
-        }
+        notificationCenterList.forEach(notificationService::notify);
     }
 }

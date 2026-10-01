@@ -10,8 +10,9 @@ public class NotificationService {
 
     public NotificationService() {}
 
-    public void setNotificationCenter(NotificationCenter notificationCenter) {
+    public void notify(NotificationCenter notificationCenter) {
         this.notificationCenter = notificationCenter;
+        service("Working");
     }
 
     public void service(String message) {
