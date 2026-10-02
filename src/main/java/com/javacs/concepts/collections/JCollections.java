@@ -2,6 +2,7 @@ package com.javacs.concepts.collections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class JCollections {
@@ -53,7 +54,7 @@ public class JCollections {
      *         ArrayList  LinkedList    ...
      */
     static class LearnList<T> {
-        /**
+        /*
          * List >> keeps the collection order
          *      >> allowed duplicates
          *      >> comes with index
@@ -109,6 +110,22 @@ public class JCollections {
 
         public int getValueIndex(T t) {
             return list.indexOf(t);
+        }
+
+        public void listConcurrentModificationException() {
+
+            List<Integer> nums = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
+
+            // not safe >> [ConcurrentModificationException]
+            for (Integer n : nums)
+                if (n % 2 == 0) nums.remove(n);
+
+            // safe and clean
+            nums.removeIf(n -> n % 2 == 0);
+
+            // true
+            for (Iterator<Integer> it = nums.iterator(); it.hasNext();)
+                if (it.next() % 2 == 0) it.remove();
         }
     }
 }
