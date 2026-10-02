@@ -26,10 +26,28 @@ record Book(String bookName,
             throw new LibraryExceptions.BookInformationMissingException(
                     "Write at least one genre");
 
-        bookGenres = List.copyOf(bookGenres);
+        /*
+         * `List.copyOf` performs two actions:
+         *
+         * It creates a copy, thereby severing the connection to the original list.
+         * It makes the copy immutable, so calling `add` or `remove` on it results in an error.
+         *
+         * here 'null' is allowed, because we will varify it with loop and throw a costume exception.
+         */
+        List<String> copy = new ArrayList<>(bookGenres);
 
-        for (String g : bookGenres)
+        /*
+         * The order matters. If we check first and then copy, an attacker could swap the
+         * list in the interval between the "check" and the "copy."
+         */
+        for (String g : copy)
             requireText(g, "Genre");
+
+        /*
+         * If the input list contains a null element, `List.copyOf` itself throws a `NullPointerException`
+         * right then and there, and execution never reaches the loop.
+         */
+        bookGenres = List.copyOf(bookGenres);
     }
 
     @Contract("null, _ -> fail")
