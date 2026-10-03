@@ -15,15 +15,25 @@ public class LruCache<T> {
     }
 
     private final List<T> list = new ArrayList<>();
+    private final List<T> delete = new ArrayList<>();
     private int miss = 0;
     private int hit = 0;
 
     public void access(T item) {
+
         if (!list.contains(item)) {
             miss++;
             list.addFirst(item);
-            if (list.size() > MAX_CAPACITY)
+
+            if (list.size() > MAX_CAPACITY) {
+
+                delete.addFirst(list.getLast());
+
+                if (delete.size() > MAX_CAPACITY)
+                    delete.removeLast();
+
                 list.removeLast();
+            }
         }
         else {
             hit++;
@@ -44,6 +54,12 @@ public class LruCache<T> {
         System.out.println(list);
     }
 
+    public void deleted() {
+        System.out.println(delete.isEmpty()
+                ? "[Empty]"
+                : delete);
+    }
+
     public static void main(String[] args) {
         LruCache<String> lruCache = new LruCache<>(3);
         lruCache.access("A");
@@ -51,8 +67,12 @@ public class LruCache<T> {
         lruCache.access("C");
         lruCache.access("A");
         lruCache.access("D");
+        lruCache.access("E");
+        lruCache.access("F");
+        lruCache.access("G");
 
         lruCache.contents();
+        lruCache.deleted();
         System.out.print(lruCache.getHit() + "/" + lruCache.getMiss());
     }
 }
