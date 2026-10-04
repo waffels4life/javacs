@@ -123,4 +123,27 @@ public class Encapsulation {
             return List.copyOf(songs.values());
         }
     }
+
+    record Song(String name) {
+
+        Song {
+
+            Objects.requireNonNull(name, "name must not be null");
+
+            name = name.strip();
+            if (name.isEmpty())
+                throw new IllegalArgumentException(
+                        "Song name must not be blank"
+                );
+        }
+
+        @Override public boolean equals(Object o) {
+            return o instanceof Song(String Other)
+                    && name.equalsIgnoreCase(Other);
+        }
+
+        @Override public int hashCode() {
+            return name.toLowerCase(Locale.ROOT).hashCode();
+        }
+    }
 }
