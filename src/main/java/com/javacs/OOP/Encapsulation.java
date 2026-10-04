@@ -1,9 +1,12 @@
 package com.javacs.OOP;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 public class Encapsulation {
     /*
@@ -77,6 +80,47 @@ public class Encapsulation {
 
         public List<String> getBooks() {
             return Collections.unmodifiableList(books); // read only
+        }
+    }
+
+    static class Playlist {
+
+        private static final int MAX_SONGS = 100;
+        private final Map<String, String> songs = new LinkedHashMap<>();
+
+        public void add(String song) {
+
+            Objects.requireNonNull(song);
+            if (songs.size() > 100)
+                throw new ArrayStoreException(
+                        "The limit for the number of songs in a playlist is 100"
+                );
+
+            String name = song.strip();
+
+            if (name.isEmpty())
+                throw new IllegalArgumentException(
+                        "Song name must not be blank"
+                );
+
+            if (songs.size() == MAX_SONGS)
+                throw new IllegalStateException(
+                        "Playlist is full (max "
+                                + MAX_SONGS
+                                + " songs)"
+                );
+
+            String key = name.toLowerCase(Locale.ROOT);
+
+            if (songs.putIfAbsent(key, name) != null)
+                throw new IllegalArgumentException(
+                        "Duplicate song: " + name
+                );
+
+        }
+
+        public List<String> getSongs() {
+            return List.copyOf(songs.values());
         }
     }
 }
