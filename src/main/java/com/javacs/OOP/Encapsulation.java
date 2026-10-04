@@ -54,6 +54,14 @@ public class Encapsulation {
         }
     }
 
+    /*
+     * [1] Encapsulation means preserving invariants, not just using `private` fields.
+     * [2] Don't write automatic getters and setters; expose only what is necessary.
+     * [3] Instead of `setX`, write methods that reflect the domain logic.
+     * [4] Never directly expose an internal mutable object.
+     * [5] Make illegal states unrepresentable.
+     * */
+
     static class Library {
         /*
          * `private` only hides the field name, not the object itself.
