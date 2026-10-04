@@ -1,5 +1,10 @@
 package com.javacs.OOP;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class Encapsulation {
     /*
      * Encapsulation >> Bundle the data and the behavior that operates on it together,
@@ -46,6 +51,24 @@ public class Encapsulation {
 
         public long getBalanceInCents() {
             return balanceInCents;
+        }
+    }
+
+    static class Library {
+        /*
+         * `private` only hides the field name, not the object itself.
+         */
+        private final List<String> books = new ArrayList<>();
+
+        /*
+         * [DANGER] Hidden Pitfall: Leaking Internals
+         */
+        public List<String> getBooksUnsafe() {
+            return books;
+        }
+
+        public List<String> getBooks() {
+            return Collections.unmodifiableList(books); // read only
         }
     }
 }
