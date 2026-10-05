@@ -1,6 +1,9 @@
 package com.javacs.morph;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -58,6 +61,12 @@ public class Images {
          */
         BufferedImage bufferedImage = ImageIO.read(input);
 
+        compressJpeg(bufferedImage, output, 0.60f);
+    }
+
+    private static void compressJpeg(BufferedImage bufferedImage,
+                                     File fileOutput,
+                                     float fileQuality) throws IOException {
         /*
          * BufferedImage
          *     │
@@ -70,6 +79,40 @@ public class Images {
          *     ▼
          * output.jpg
          */
-        ImageIO.write(bufferedImage, "jpg", output);
+        ImageWriter imageWriter = ImageIO
+                .getImageWritersByFormatName("jpg")
+                .next();
+
+        ImageWriteParam imageWriteParam = imageWriter.getDefaultWriteParam();
+
+        imageWriteParam.setCompressionMode(
+                ImageWriteParam.MODE_EXPLICIT
+        );
+
+        imageWriteParam.setCompressionQuality(fileQuality);
+
+        imageWriter.setOutput(
+                ImageIO.createImageOutputStream(fileOutput)
+        );
+
+        /*
+         * IIOImage
+         * ├── RenderedImage
+         * ├── thumbnails
+         * └── metadata
+         */
+        imageWriter.write(
+                null,
+                new IIOImage(bufferedImage, null, null),
+                imageWriteParam
+        );
+        /*
+         * new IIOImage(image, null, null)
+         *              │      │     └── no metadata
+         *              │      └── no thumbnails
+         *              └── image
+         */
+
+        imageWriter.dispose();
     }
 }
