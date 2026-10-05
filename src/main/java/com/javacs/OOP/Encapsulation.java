@@ -1,5 +1,8 @@
 package com.javacs.OOP;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -137,13 +140,17 @@ public class Encapsulation {
                 );
         }
 
+        private @NotNull String key() {
+            return name.toLowerCase(Locale.ROOT);
+        }
+
         @Override public boolean equals(Object o) {
             return o instanceof Song(String Other)
                     && name.equalsIgnoreCase(Other);
         }
 
         @Override public int hashCode() {
-            return name.toLowerCase(Locale.ROOT).hashCode();
+            return key().hashCode();
         }
     }
 }
