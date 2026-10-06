@@ -2,12 +2,15 @@ package com.javacs.concepts;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.management.openmbean.OpenDataException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Objects;
@@ -67,6 +70,29 @@ public class JIOStream {
                 outputStream.write((byte) message);
                 outputStream.flush();
             }
+        }
+    }
+
+    /**
+     * Character Streams
+     *
+     * Reader (abstract)
+     * ├── FileReader
+     * ├── BufferedReader
+     * ├── InputStreamReader  → bridge between byte & char
+     * ├── StringReader
+     * └── CharArrayReader
+     *
+     * Writer (abstract)
+     * ├── FileWriter
+     * ├── BufferedWriter
+     * ├── OutputStreamWriter → bridge between byte & char
+     * ├── StringWriter
+     * └── PrintWriter
+     */
+    public <T> void charStream(T message) throws IOException {
+        try (Writer writer = new FileWriter("chars.txt")) {
+            writer.write((String) message);
         }
     }
 
