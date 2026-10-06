@@ -10,43 +10,58 @@ import java.util.function.Consumer;
 
 public class JIOStream {
     /**
-     *                  10 GB File
-     *                      │
-     *                      │
-     *           ┌──────────┴──────────┐
-     *           │                     │
-     *         Disk                   RAM
-     *           │                     │
-     *           └─────── chunks ──────┘
+     * IO
+     * ├── Byte Streams (for binary data)
+     * │   ├── InputStream
+     * │   └── OutputStream
+     * │
+     * └── Character Streams (for characters and strings)
+     *     ├── Reader
+     *     └── Writer
      *
-     * Disk:
-     * [A][B][C][D][E][F][G][H]...
-     *
-     * RAM:
-     *      [A] -> process
-     *               ↓
-     *              [B] -> process
-     *                       ↓
-     *                      [C] -> process
-     *                               ↓
-     *                              ...
-     * [InputStream]  >> A sequential source of bytes from which we can read data
-     * [OutputStream] >> A destination into which we can write bytes
-     *
-     * If we use abstractions, it does not matter where the data comes from;
-     * it is simply processed by the central engine core.
-     *
-     * File
-     * ↓
-     * FileInputStream ┐
-     * Network         ├── InputStream ──→ engine
-     * Socket          ┘
-     *
-     * we use 'int' for read()  >> showcase 0..255 -> for bytes
-     *                          >> -1 for EOF
+     * The golden rule : if it's binary data (byte)          >> Byte Stream
+     *                 : if it's text and characters (char)  >> Character Stream
      *
      */
+
     public static final class StreamChunkReader {
+        /*
+         *                  10 GB File
+         *                      │
+         *                      │
+         *           ┌──────────┴──────────┐
+         *           │                     │
+         *         Disk                   RAM
+         *           │                     │
+         *           └─────── chunks ──────┘
+         *
+         * Disk:
+         * [A][B][C][D][E][F][G][H]...
+         *
+         * RAM:
+         *      [A] -> process
+         *               ↓
+         *              [B] -> process
+         *                       ↓
+         *                      [C] -> process
+         *                               ↓
+         *                              ...
+         * [InputStream]  >> A sequential source of bytes from which we can read data
+         * [OutputStream] >> A destination into which we can write bytes
+         *
+         * If we use abstractions, it does not matter where the data comes from;
+         * it is simply processed by the central engine core.
+         *
+         * File
+         * ↓
+         * FileInputStream ┐
+         * Network         ├── InputStream ──→ engine
+         * Socket          ┘
+         *
+         * we use 'int' for read()  >> showcase 0..255 -> for bytes
+         *                          >> -1 for EOF
+         *
+         */
 
         private static final int MIN_LOG2_SIZE = 1;
         private static final int MAX_LOG2_SIZE = 20;
