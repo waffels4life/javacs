@@ -18,6 +18,17 @@ public class Images {
      * │ Huffman Tables           │
      * │ Compressed Image Data    │
      * └──────────────────────────┘
+     *                      photo.jpg
+     *                         │
+     *         ┌───────────────┴───────────────┐
+     *         │                               │
+     *      Metadata                       Image Data
+     *         │                               │
+     *    dimensions                     compressed data
+     *    color info
+     *    EXIF
+     *    ...
+     *
      * JPEG
      *  │ decode
      *  ▼
