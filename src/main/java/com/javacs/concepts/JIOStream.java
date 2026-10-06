@@ -4,8 +4,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Objects;
@@ -45,6 +47,25 @@ public class JIOStream {
                 int data;
                 while ((data = inputStream.read()) != -1)
                     System.out.println((char) data);
+            }
+        }
+    }
+
+    public static final class JOutputStream {
+        /*
+         * OutputStream (abstract)
+         * ├── FileOutputStream
+         * ├── ByteArrayOutputStream
+         * ├── BufferedOutputStream
+         * ├── DataOutputStream
+         * ├── ObjectOutputStream
+         * ├── PrintStream
+         * └── PipedOutputStream
+         */
+        public <T> JOutputStream(@NotNull Path path, T message) throws IOException {
+            try (OutputStream outputStream = new FileOutputStream(path.toFile())) {
+                outputStream.write((byte) message);
+                outputStream.flush();
             }
         }
     }
