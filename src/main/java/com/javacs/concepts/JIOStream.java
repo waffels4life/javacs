@@ -2,8 +2,11 @@ package com.javacs.concepts;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -23,6 +26,28 @@ public class JIOStream {
      *                 : if it's text and characters (char)  >> Character Stream
      *
      */
+
+    public static final class JInputStream {
+        /*
+         * InputStream (abstract)
+         * ├── FileInputStream
+         * ├── ByteArrayInputStream
+         * ├── BufferedInputStream
+         * ├── DataInputStream
+         * ├── ObjectInputStream
+         * ├── PipedInputStream
+         * ├── SequenceInputStream
+         * └── FilterInputStream
+         */
+
+        public JInputStream(Path path) throws IOException {
+            try (InputStream inputStream = new FileInputStream(path.toFile())) {
+                int data;
+                while ((data = inputStream.read()) != -1)
+                    System.out.println((char) data);
+            }
+        }
+    }
 
     public static final class StreamChunkReader {
         /*
