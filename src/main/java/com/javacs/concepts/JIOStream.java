@@ -2,9 +2,9 @@ package com.javacs.concepts;
 
 import org.jetbrains.annotations.NotNull;
 
-import javax.management.openmbean.OpenDataException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -94,6 +94,24 @@ public class JIOStream {
         try (Writer writer = new FileWriter("chars.txt")) {
             writer.write((String) message);
         }
+    }
+
+    public <T> void byteArray(T message) throws IOException {
+
+        ByteArrayOutputStream byteArrayOutputStream
+                = new ByteArrayOutputStream();
+
+        byteArrayOutputStream.write((byte) message);
+
+        byte[] data = byteArrayOutputStream.toByteArray();
+
+        ByteArrayInputStream byteArrayInputStream
+                = new ByteArrayInputStream(data);
+
+        int c;
+        while ((c = byteArrayInputStream.read()) != -1)
+            System.out.print((char) c);
+
     }
 
     public static final class StreamChunkReader {
