@@ -104,6 +104,15 @@ public class Shift {
         System.out.println(Integer.toString(182, 2));    // any base from 2 to 36
     }
 
+    /**
+     * chmod   6        4        0
+     *         ↓        ↓        ↓
+     * bits   110      100      000
+     *         ↓        ↓        ↓
+     * perm   rw-      r--      ---
+     *        owner    group    others
+     */
+
     public static void main(String[] args) {
         printBitValue();
     }
