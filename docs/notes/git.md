@@ -27,3 +27,32 @@ init.defaultBranch main: Sets the default branch name for new projects to 'main'
 
 core.editor: The editor Git opens to write commit messages (here, it's VS Code; change it if you use IntelliJ or something else).
    git config --global core.editor "code --wait"
+
+git config --list
+   user.name=Arsam Your-Last-Name
+   user.email=you@example.com
+   init.defaultbranch=main
+   core.editor=code --wait
+git config user.name
+
+Your Computer                         GitHub
+┌──────────────────┐              ┌───────────────────┐
+│ id_ed25519       │              │ Your public key   │
+│ (PRIVATE key)    │              │ (the "lock")      │
+│ never share!     │              │                   │
+│                  │              │                   │
+│ id_ed25519.pub   │── you add ──▶│ stored in your    │
+│ (PUBLIC key)     │   it once    │ account settings  │
+└──────────────────┘              └───────────────────┘
+
+When you push: GitHub checks that your private key
+matches the public key. If yes, access is allowed.
+
+ssh-keygen -t ed25519 -C "you@example.com"
+   Generating public/private ed25519 key pair.
+   Enter file in which to save the key (/home/arsam/.ssh/id_ed25519):
+   Enter passphrase (empty for no passphrase):
+
+cat ~/.ssh/id_ed25519.pub
+
+testing → ssh -T git@github.com
