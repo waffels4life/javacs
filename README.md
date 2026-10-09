@@ -2,17 +2,24 @@
 
 A personal Java study workspace for learning the language, core APIs, concurrency, data structures, design principles, and small application experiments.
 
-The repository is intentionally a **single Maven project**: exercises can share the same JDK and build configuration without introducing multi-module overhead too early.
+The repository is intentionally a **single Maven project**: exercises share one JDK/build configuration without premature multi-module overhead.
 
 ## Project layout
 
-- `src/main/java` — learning examples and small runnable exercises.
-- `src/test/java` — automated tests for examples where behavior can be verified.
-- `src/main/resources` — runtime resources.
-- `src/test/resources` — test fixtures.
-- `docs` — repository conventions and architecture notes.
+- `src/main/java/com/javacs/fundamentals` — language fundamentals and operators.
+- `src/main/java/com/javacs/oop` — object-oriented programming and interfaces.
+- `src/main/java/com/javacs/api` — collections, functional programming, streams, I/O, files, and utility APIs.
+- `src/main/java/com/javacs/concurrency` — threads and concurrency primitives.
+- `src/main/java/com/javacs/algorithms` — algorithmic exercises and problem solving.
+- `src/main/java/com/javacs/database` — SQL and JDBC learning examples.
+- `src/main/java/com/javacs/security` — Java security API exercises.
+- `src/main/java/com/javacs/design` — SOLID principles and design examples.
+- `src/main/java/com/javacs/projects` — independent mini-projects.
+- `src/main/java/com/javacs/books` — examples and notes inspired by books.
+- `src/test/java` — automated tests.
+- `docs` — repository conventions and learning notes.
 
-Java packages should use lowercase names. Keep examples grouped by topic, and keep standalone experiments in a clearly named project package. Prefer descriptive class names over abbreviations when adding new material.
+Java package names use lowercase. Java sources stay under `src/main/java`; Markdown notes belong under `docs/`. Keep examples grouped by subject, and update package declarations and imports together when moving a class.
 
 ## Build
 
@@ -22,7 +29,7 @@ Requirements: JDK 22 and Maven.
 mvn clean verify
 ```
 
-Run a particular lesson by running its class from the IDE, or by using the Maven/Java run configuration appropriate for that class. The root `Main` class intentionally does not launch a specific lesson.
+Run a specific lesson from its class in your IDE. The root `Main` class is deliberately neutral and does not launch one particular exercise.
 
 ## Learning resources
 
@@ -40,11 +47,11 @@ Run a particular lesson by running its class from the IDE, or by using the Maven
 
 ## Commit conventions
 
-Use small, topic-focused commits:
+Prefer small, topic-focused commits:
 
-- `concept:` introduce or explain a concept.
+- `concept:` explain or introduce a concept.
 - `practice:` add an exercise or implementation.
-- `note:` add learning notes or reference material.
+- `note:` add learning notes.
 - `refactor:` reorganize code without intentionally changing behavior.
 - `test:` add or improve automated tests.
 - `docs:` update documentation.
