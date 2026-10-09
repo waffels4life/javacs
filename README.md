@@ -1,37 +1,57 @@
 # Javacs
 
-This is a study file for my own use, allowing me to practice Java concepts alongside my reading. It serves no other purpose.
+A personal Java study workspace for learning the language, core APIs, concurrency, data structures, design principles, and small application experiments.
 
----
+The repository is intentionally a **single Maven project**: exercises share one JDK/build configuration without premature multi-module overhead.
 
-# Resources
+## Project layout
 
-### online
-- https://dev.java/learn/ (Reference site)
-- https://roadmap.sh/java (Comprehensive roadmap for learning Java)
-- https://jenkov.com/tutorials/java/index.html (Teaching Concepts)
-- https://www.geeksforgeeks.org/java/java/ (Teaching Concepts)
-- https://howtodoinjava.com/ (Practical training)
-- https://github.com/TheAlgorithms/Java (Implementation of algorithms)
+- `src/main/java/com/javacs/fundamentals` — language fundamentals and operators.
+- `src/main/java/com/javacs/oop` — object-oriented programming and interfaces.
+- `src/main/java/com/javacs/api` — collections, functional programming, streams, I/O, files, and utility APIs.
+- `src/main/java/com/javacs/concurrency` — threads and concurrency primitives.
+- `src/main/java/com/javacs/algorithms` — algorithmic exercises and problem solving.
+- `src/main/java/com/javacs/database` — SQL and JDBC learning examples.
+- `src/main/java/com/javacs/security` — Java security API exercises.
+- `src/main/java/com/javacs/design` — SOLID principles and design examples.
+- `src/main/java/com/javacs/projects` — independent mini-projects.
+- `src/main/java/com/javacs/books` — examples and notes inspired by books.
+- `src/test/java` — automated tests.
+- `docs` — repository conventions and learning notes.
 
-### books
-- <a href="https://books.google.com/books/about/Java_How_to_Program.html?id=QjFpDwAAQBAJ">Java How to Program by Paul J. Deitel</a>
-- <a href="https://www.dummies.com/book/technology/programming-web-design/java/java-for-dummies-281748/">Java For Dummies by Barry Burd
-  </a>
-- Core Java Volume I & II by Cay S. Horstmann
-- Data Structures and Algorithms in Java by Michael T. Goodrich, Roberto Tamassia & Michael H. Goldwasser
+Java package names use lowercase. Java sources stay under `src/main/java`; Markdown notes belong under `docs/`. Keep examples grouped by subject, and update package declarations and imports together when moving a class.
 
----
+## Build
 
-# Commit Guide
+Requirements: JDK 22 and Maven.
 
-- `concept` The main topic for starting the exercises
+```shell
+mvn clean verify
+```
 
+Run a specific lesson from its class in your IDE. The root `Main` class is deliberately neutral and does not launch one particular exercise.
 
-- `practice` Practicing a Java concept
+## Learning resources
 
+- [Dev.java](https://dev.java/learn/)
+- [Java roadmap](https://roadmap.sh/java)
+- [Jenkov Java tutorials](https://jenkov.com/tutorials/java/index.html)
+- [HowToDoInJava](https://howtodoinjava.com/)
+- [TheAlgorithms/Java](https://github.com/TheAlgorithms/Java)
 
-- `note` Supplementary Study Notes
+### Books
 
+- *Core Java, Volume I & II* — Cay S. Horstmann
+- *Data Structures and Algorithms in Java* — Michael T. Goodrich, Roberto Tamassia, and Michael H. Goldwasser
+- *Effective Java* — Joshua Bloch
 
-- `chores` Tidying up, cleaning, and organizing
+## Commit conventions
+
+Prefer small, topic-focused commits:
+
+- `concept:` explain or introduce a concept.
+- `practice:` add an exercise or implementation.
+- `note:` add learning notes.
+- `refactor:` reorganize code without intentionally changing behavior.
+- `test:` add or improve automated tests.
+- `docs:` update documentation.
