@@ -1,37 +1,50 @@
 # Javacs
 
-This is a study file for my own use, allowing me to practice Java concepts alongside my reading. It serves no other purpose.
+A personal Java study workspace for learning the language, core APIs, concurrency, data structures, design principles, and small application experiments.
 
----
+The repository is intentionally a **single Maven project**: exercises can share the same JDK and build configuration without introducing multi-module overhead too early.
 
-# Resources
+## Project layout
 
-### online
-- https://dev.java/learn/ (Reference site)
-- https://roadmap.sh/java (Comprehensive roadmap for learning Java)
-- https://jenkov.com/tutorials/java/index.html (Teaching Concepts)
-- https://www.geeksforgeeks.org/java/java/ (Teaching Concepts)
-- https://howtodoinjava.com/ (Practical training)
-- https://github.com/TheAlgorithms/Java (Implementation of algorithms)
+- `src/main/java` — learning examples and small runnable exercises.
+- `src/test/java` — automated tests for examples where behavior can be verified.
+- `src/main/resources` — runtime resources.
+- `src/test/resources` — test fixtures.
+- `docs` — repository conventions and architecture notes.
 
-### books
-- <a href="https://books.google.com/books/about/Java_How_to_Program.html?id=QjFpDwAAQBAJ">Java How to Program by Paul J. Deitel</a>
-- <a href="https://www.dummies.com/book/technology/programming-web-design/java/java-for-dummies-281748/">Java For Dummies by Barry Burd
-  </a>
-- Core Java Volume I & II by Cay S. Horstmann
-- Data Structures and Algorithms in Java by Michael T. Goodrich, Roberto Tamassia & Michael H. Goldwasser
+Java packages should use lowercase names. Keep examples grouped by topic, and keep standalone experiments in a clearly named project package. Prefer descriptive class names over abbreviations when adding new material.
 
----
+## Build
 
-# Commit Guide
+Requirements: JDK 22 and Maven.
 
-- `concept` The main topic for starting the exercises
+```shell
+mvn clean verify
+```
 
+Run a particular lesson by running its class from the IDE, or by using the Maven/Java run configuration appropriate for that class. The root `Main` class intentionally does not launch a specific lesson.
 
-- `practice` Practicing a Java concept
+## Learning resources
 
+- [Dev.java](https://dev.java/learn/)
+- [Java roadmap](https://roadmap.sh/java)
+- [Jenkov Java tutorials](https://jenkov.com/tutorials/java/index.html)
+- [HowToDoInJava](https://howtodoinjava.com/)
+- [TheAlgorithms/Java](https://github.com/TheAlgorithms/Java)
 
-- `note` Supplementary Study Notes
+### Books
 
+- *Core Java, Volume I & II* — Cay S. Horstmann
+- *Data Structures and Algorithms in Java* — Michael T. Goodrich, Roberto Tamassia, and Michael H. Goldwasser
+- *Effective Java* — Joshua Bloch
 
-- `chores` Tidying up, cleaning, and organizing
+## Commit conventions
+
+Use small, topic-focused commits:
+
+- `concept:` introduce or explain a concept.
+- `practice:` add an exercise or implementation.
+- `note:` add learning notes or reference material.
+- `refactor:` reorganize code without intentionally changing behavior.
+- `test:` add or improve automated tests.
+- `docs:` update documentation.
