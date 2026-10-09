@@ -1,5 +1,5 @@
 GIT
-
+```text
 Your Computer                          Internet
 ┌─────────────────┐                  ┌──────────────────┐
 │  library-app/   │                  │     GitHub       │
@@ -56,3 +56,20 @@ ssh-keygen -t ed25519 -C "you@example.com"
 cat ~/.ssh/id_ed25519.pub
 
 testing → ssh -T git@github.com
+
+Working Directory      Staging Area          Repository (.git)
+(your files)           (the "next commit"    (saved history)
+waiting room)
+┌───────────────┐      ┌───────────────┐      ┌───────────────┐
+│ Main.java     │ add  │ Main.java     │commit│ commit a1b2c3 │
+│ Book.java     │─────▶│               │─────▶│ commit 9f8e7d │
+│ (you edit     │      │ (you choose   │      │ (permanent    │
+│  here)        │      │  what goes in)│      │  snapshots)   │
+└───────────────┘      └───────────────┘      └───────────────┘
+
+Untracked ──add──▶ Staged ──commit──▶ Unmodified (committed)
+                     │
+                     edit
+                     ▼
+                     Modified ──add──▶ Staged ...
+```
