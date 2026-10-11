@@ -72,4 +72,73 @@ Untracked ──add──▶ Staged ──commit──▶ Unmodified (committed)
                      edit
                      ▼
                      Modified ──add──▶ Staged ...
+                     
+principal for writing a clean commit : 
+Add Book class with title and author       <-- subject (max ~50 chars)
+                                           <-- blank line
+Book is a record so it is immutable.       <-- body (optional): WHY, not what
+It will be used by the Library class.
+
+git rm --cached Main.class
+
+   edit files
+       │
+       ▼
+  git status          <-- what changed?
+       │
+       ▼
+  git diff            <-- what exactly changed?
+       │
+       ▼
+  git add <files>     <-- choose what to commit
+       │
+       ▼
+  git diff --staged   <-- final check
+       │
+       ▼
+  git commit -m "..." <-- save snapshot
+       │
+       ▼
+  git log --oneline   <-- verify
+  
+library-app/
+├── .git/              <-- the whole repository lives here
+│   ├── HEAD           <-- "where am I now?"
+│   ├── index          <-- the staging area (a binary file)
+│   ├── objects/       <-- ALL content: blobs, trees, commits
+│   └── refs/
+│       └── heads/
+│           └── main   <-- the branch "main" (just a file!)
+├── Main.java          <-- working directory
+└── Book.java
+
+ commit a1b2c3
+ ┌────────────────────────┐
+ │ tree      -------------┼──┐
+ │ parent    (none)       │  │
+ │ author    Arsam        │  │
+ │ message   "Add Main"   │  │
+ └────────────────────────┘  │
+                             ▼
+                      tree 7f8e9d  (root folder)
+                      ┌──────────────────────┐
+                      │ Main.java  -> blob 3c│
+                      │ Book.java  -> blob 9a│
+                      │ src/       -> tree 5b│
+                      └──────────────────────┘
+                              │
+                              ▼
+                      blob 3c  (content of Main.java)
+                      
+ a1b2c3 <---- c3d4e5 <---- f6a7b8
+ (first)      (second)     (third)
+   ^             ^            ^
+   parent        parent       parent
+   of c3d4e5     of f6a7b8    of nothing yet
+   
+        c3d4e5 ---- f6a7b8   (branch feature)
+       /                  \
+ a1b2c3                    m9n0p1  <-- merge commit (2 parents)
+       \                  /
+        d4e5f6 ---- b8c9d0   (branch main)
 ```
