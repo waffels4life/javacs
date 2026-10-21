@@ -229,11 +229,7 @@ public final class GeneticAlgorithm {
         System.out.println("Child:    " + Arrays.toString(child));
         System.out.println("Fitness:  " + calculateFitness(child));
 
-        int i = 0;
-        do {
-            mutate(child);
-            i++;
-        } while (i < 100);
+        mutate(child);
 
         System.out.println("Child (after mutation):    " + Arrays.toString(child));
         System.out.println("Fitness (after mutation):  "
