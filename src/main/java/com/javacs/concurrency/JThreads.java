@@ -13,8 +13,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class JThreads {
     /*
-     * parallelization  : Executing multiple threads in parallel.
-     * concurrency      : Tasks are not performed simultaneously; the CPU
+     *  : Executing multiple threads in parallel.
+     * parallelization concurrency      : Tasks are not performed simultaneously; the CPU
      *                    simply switches between threads very rapidly.
      * multitasking     : operating system manages multiple programs or processes.
      * multithreading   : There are several execution paths within a program.
