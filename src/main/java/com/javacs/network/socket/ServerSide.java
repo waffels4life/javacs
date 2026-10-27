@@ -1,4 +1,4 @@
-package com.javacs.network;
+package com.javacs.network.socket;
 
 import java.io.DataInputStream;
 import java.io.IOException;
