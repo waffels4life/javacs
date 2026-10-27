@@ -84,6 +84,21 @@ public final class NetworkInfo {
                     System.out.println("  Address -> " + ip
                             + " [" + ipFamily + "]"
                     );
+
+                    /*
+                     * ┌────────────────────┬──────────┬─────────────────────────────────────┐
+                     * │ Address            │ Family   │ Scope / Meaning                     │
+                     * ├────────────────────┼──────────┼─────────────────────────────────────┤
+                     * │ 127.0.0.1          │ IPv4     │ Loopback — this machine only        │
+                     * │ ::1                │ IPv6     │ Loopback — this machine only        │
+                     * │ fe80::abcd         │ IPv6     │ Link-local — same subnet only       │
+                     * │ 169.254.x.x        │ IPv4     │ APIPA — DHCP failed, not usable     │
+                     * │ 192.168.x.x        │ IPv4     │ Private LAN                         │
+                     * │ 10.x.x.x           │ IPv4     │ Private LAN                         │
+                     * │ 172.16–31.x.x      │ IPv4     │ Private LAN                         │
+                     * │ 2001:db8::1        │ IPv6     │ Global (public)                     │
+                     * └────────────────────┴──────────┴─────────────────────────────────────┘
+                     */
                 }
             }
         }
