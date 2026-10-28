@@ -20,7 +20,6 @@ public final class ClientSide {
             while (!(line = bufferedReader.readLine())
                     .equalsIgnoreCase("end"))
                 outputStream.writeUTF(line);
-
         }
         catch (IOException e) {
             e.printStackTrace();

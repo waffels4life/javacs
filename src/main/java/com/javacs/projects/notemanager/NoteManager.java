@@ -103,7 +103,7 @@ class NoteReader {
     public static void readAsStream() {
         try (Stream<String> lines = Files.lines(NOTES_DIR, StandardCharsets.UTF_8)) {
             lines
-                    .map(String::trim)
+                    .<String>map(String::trim)
                     .filter(l -> !l.isEmpty())
                     .filter(l -> l.startsWith("-"))
                     .forEach(System.out::println);
