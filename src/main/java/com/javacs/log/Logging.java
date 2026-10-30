@@ -2,6 +2,7 @@ package com.javacs.log;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -106,8 +107,29 @@ public final class Logging {
          *     No console output
          */
     }
+    private static final ConsoleHandler consoleHandler = new ConsoleHandler();
+    private static void printFineLevel() {
+        /*
+         * FINE message
+         *      |
+         *      v
+         * Logger (FINE)          → Accept
+         *      |
+         *      v
+         * ConsoleHandler (FINE)  → Accept
+         *      |
+         *      v
+         * Console output
+         */
+        LOGGER.setUseParentHandlers(false);
+        LOGGER.setLevel(Level.FINE);
+        consoleHandler.setLevel(Level.FINE);
+        LOGGER.addHandler(consoleHandler);
+
+        LOGGER.fine("FINE message");
+    }
 
     public static void main(String[] args) {
-        setLogLevel();
+        printFineLevel();
     }
 }
