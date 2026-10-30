@@ -57,7 +57,7 @@ public final class Logging {
 
     private static void nullLogger() {
         try {
-            Logger logger = Logger.getLogger(loggerName);
+            Logger.getLogger(loggerName);
             LOGGER.warning("getLogger(null) did not throw NPE");
         }
         catch (NullPointerException e) {
@@ -65,7 +65,7 @@ public final class Logging {
         }
     }
 
-    private static void costumeLogLevel() {
+    private static void customLogLevel() {
         LOGGER.log(Level.WARNING, "Warning log");
     }
 
