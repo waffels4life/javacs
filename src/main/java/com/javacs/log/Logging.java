@@ -79,6 +79,32 @@ public final class Logging {
         LOGGER.warning("WARNING message");
         LOGGER.info("INFO message");
         LOGGER.fine("FINE message");
+
+        /*
+         * Logger accepts FINE
+         *         v
+         * Handler receives the record
+         *         v
+         * Handler rejects FINE (level = INFO)
+         *         v
+         * Nothing appears in the console
+         */
+        System.out.println(LOGGER.isLoggable(Level.FINE));
+
+        /*
+         * LOGGER.fine("Debug message")
+         *            |
+         *            v
+         *     Logger: FINE
+         *            |
+         *            | Accepts FINE
+         *            v
+         *     ConsoleHandler: INFO
+         *            |
+         *            | Rejects FINE
+         *            v
+         *     No console output
+         */
     }
 
     public static void main(String[] args) {
