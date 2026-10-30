@@ -6,6 +6,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@SuppressWarnings("all")
 /*
  * Logger.getLogger: creates a single logger instance for the class we want to observer.
  *
@@ -129,7 +130,38 @@ public final class Logging {
         LOGGER.fine("FINE message");
     }
 
+    /*
+     * Logger a = Logger.getLogger("com.javacs");
+     * Logger b = Logger.getLogger("com.javacs.compiler");
+     * Logger c = Logger.getLogger("com.javacs.compiler.runner");
+     *
+     *             ""
+     *             Root
+     *             |
+     *             v
+     *             com.javacs
+     *             |
+     *             v
+     *             com.javacs.compiler
+     *             |
+     *             v
+     *             com.javacs.compiler.runner
+     */
+    static class LoggerHierarchy {
+        static void hierarchy() {
+            Logger root = Logger.getLogger("");
+            Logger logger = Logger.getLogger("com.javacs.oop.solid");
+
+            logger.setLevel(null);
+
+            root.setLevel(Level.FINE);
+            System.out.println(logger.isLoggable(Level.FINE));
+
+            root.setLevel(Level.INFO);
+            System.out.println(logger.isLoggable(Level.FINE));
+        }
+    }
     public static void main(String[] args) {
-        printFineLevel();
+        new LoggerHierarchy().hierarchy();
     }
 }
