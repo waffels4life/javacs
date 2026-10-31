@@ -70,9 +70,21 @@ public class Images {
          *     ▼
          * BufferedImage
          */
-        BufferedImage bufferedImage = ImageIO.read(input);
 
-        compressJpeg(bufferedImage, output, 0.60f);
+        BufferedImage image = ImageIO.read(input);
+
+        if (image == null)
+            throw new IllegalArgumentException(
+                    "Input is not a supported image."
+            );
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        System.out.println("Width: " + width);
+        System.out.println("Height: " + height);
+
+        // compressJpeg(image, output, 0.60f);
     }
 
     private static void compressJpeg(BufferedImage bufferedImage,
