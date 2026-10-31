@@ -1,9 +1,12 @@
 package com.javacs.projects.morph;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -73,6 +76,9 @@ public class Images {
 
         BufferedImage image = ImageIO.read(input);
 
+        /*
+         * ImageIO will return null; if only the format was not supported.
+         */
         if (image == null)
             throw new IllegalArgumentException(
                     "Input is not a supported image."
@@ -81,9 +87,22 @@ public class Images {
         int width = image.getWidth();
         int height = image.getHeight();
 
-        System.out.println("Width: " + width);
-        System.out.println("Height: " + height);
+        BufferedImage resized = new BufferedImage(
+                800,
+                600,
+                BufferedImage.TYPE_INT_RGB
+        );
 
+        Graphics2D graphics2D = resized.createGraphics();
+        try {
+            graphics2D.drawImage(image, 0,0,800,600,null);
+        }
+        finally {
+            graphics2D.dispose();
+        }
+
+        boolean written = ImageIO.write(resized, "jpg", output);
+        if (!written) throw new IOException("No suitable writer found for JPEG.");
         // compressJpeg(image, output, 0.60f);
     }
 
