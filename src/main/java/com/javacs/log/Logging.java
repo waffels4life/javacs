@@ -1,5 +1,6 @@
 package com.javacs.log;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -173,10 +174,42 @@ public final class Logging {
             loggerList.add(logger);
         }
     }
+
+    class OrderService {
+
+        private static final Logger logger = Logger.getLogger(
+                OrderService.class.getName()
+        );
+        public void setLoggerLevel(Level level) {
+            Objects.requireNonNull(level, "level");
+            logger.setLevel(level);
+        }
+        public void createOrder() {
+            logger.info("Creating a new order");
+        }
+        public void handleException() {
+            try {
+                if (logger.isLoggable(Level.FINE)) {
+                    @Nullable String diagnostic = buildExpensiveDiagnosticReport();
+                    logger.fine(diagnostic);
+                }
+                throw new RuntimeException();
+            }
+            catch (RuntimeException e) {
+                logger.log(
+                        Level.WARNING,
+                        "Error ecure",
+                        e
+                );
+            }
+        }
+
+        @Contract(pure = true)
+        private @Nullable String buildExpensiveDiagnosticReport() {
+            return null;
+        }
+    }
     public static void main(String[] args) {
-        Logger[] loggers = {
-                LOGGER
-        };
-        addLogToList(loggers);
+
     }
 }
