@@ -2,6 +2,9 @@ package com.javacs.log;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -161,7 +164,19 @@ public final class Logging {
             System.out.println(logger.isLoggable(Level.FINE));
         }
     }
+
+    private static final List<Logger> loggerList = new ArrayList<Logger>();
+    private static void addLogToList(Logger[] logs) {
+        Objects.requireNonNull(logs, "logs");
+        for (Logger logger : logs) {
+            Objects.requireNonNull(logger);
+            loggerList.add(logger);
+        }
+    }
     public static void main(String[] args) {
-        new LoggerHierarchy().hierarchy();
+        Logger[] loggers = {
+                LOGGER
+        };
+        addLogToList(loggers);
     }
 }
