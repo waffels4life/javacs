@@ -93,12 +93,18 @@ public class Images {
                 BufferedImage.TYPE_INT_RGB
         );
 
-        Graphics2D graphics2D = resized.createGraphics();
+        Graphics2D graphics = resized.createGraphics();
+
         try {
-            graphics2D.drawImage(image, 0,0,800,600,null);
+            graphics.setRenderingHint(
+                    RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC
+            );
+
+            graphics.drawImage(image, 0, 0, 800, 600, null);
         }
         finally {
-            graphics2D.dispose();
+            graphics.dispose();
         }
 
         boolean written = ImageIO.write(resized, "jpg", output);
@@ -132,10 +138,7 @@ public class Images {
         );
 
         imageWriteParam.setCompressionQuality(fileQuality);
-
-        imageWriter.setOutput(
-                ImageIO.createImageOutputStream(fileOutput)
-        );
+        imageWriter.setOutput(ImageIO.createImageOutputStream(fileOutput));
 
         /*
          * IIOImage
