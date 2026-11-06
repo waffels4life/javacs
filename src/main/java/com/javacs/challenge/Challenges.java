@@ -4,53 +4,35 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-/**
- * A code for masking card information that is tedious and not very efficient.
- */
 public final class Challenges {
-    private static @NotNull String creditCard(String serial) {
-        Objects.requireNonNull(serial);
 
-        String formatSerial = serial
-                .replace("-", "")
-                .replaceAll("\\s+", "");
+    private static final int CARD_LENGTH = 16;
 
-        creditCardValidator(formatSerial);
-        int length = formatSerial.length();
-        char[] digits = formatSerial.toCharArray();
+    public static @NotNull String maskCreditCard(String cardNumber) {
+        Objects.requireNonNull(cardNumber, "cardNumber must not be null");
 
-        StringBuilder card = new StringBuilder("XXXX-XXXX-XXXX-");
-        for (int i = length - 4; i < length; i++)
-            card.append(digits[i]);
+        String digits = cardNumber.replaceAll("[\\s-]", "");
+        validateCreditCard(digits);
 
-        return card.toString();
+        return "XXXX-XXXX-XXXX-" + digits.substring(CARD_LENGTH - 4);
     }
 
-    private static void creditCardValidator(String serial) {
-        Objects.requireNonNull(serial);
-
-        int length = serial.length();
-        String[] digits = new String[length];
-
-        if (length < 16)
-            throw new RuntimeException(
-                    "Card number length cannot be lower than 16."
+    private static void validateCreditCard(@NotNull String digits) {
+        if (digits.length() != CARD_LENGTH) {
+            throw new IllegalArgumentException(
+                    "Card number must be exactly " + CARD_LENGTH + " digits, got " + digits.length()
             );
-
-        for (int i = 0; i < length; i++)
-            digits[i] = String.valueOf(serial.charAt(i));
-
-        for (String digit : digits) {
-            try {
-                Integer.parseInt(digit);
-            }
-            catch (NumberFormatException e) {
-                throw new RuntimeException(e);
-            }
         }
+        for (int i = 0; i < digits.length(); i++)
+            if (!Character.isDigit(digits.charAt(i)))
+                throw new IllegalArgumentException(
+                        "Card number must contain only digits (found: '" + digits.charAt(i) + "')"
+                );
     }
 
     public static void main(String[] args) {
-        System.out.println(creditCard("5425-6514-4225-3612"));
+        System.out.println(maskCreditCard("5425-6514-4225-3612"));
+        System.out.println(maskCreditCard("5425 6514 4225 a612"));
+        System.out.println(maskCreditCard("5425651442253612"));
     }
 }
