@@ -1,7 +1,5 @@
 package com.javacs.time;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -28,24 +26,21 @@ public final class AgeInfo {
         period = Period.between(custom, now);
     }
 
-    private String printInfo() {
-        return "Year: " +
-                period.getYears() +
-                "\n" +
-                "Months: " +
-                period.getMonths() +
-                "\n" +
-                "Days: " +
-                period.getDays();
+    public void printAge() {
+        System.out.println(
+                "Year: " + period.getYears() +
+                        "\nMonths: " + period.getMonths() +
+                        "\nDays: " + period.getDays()
+        );
     }
 
     public static void main(String[] args) {
         System.out.println("Enter date in [Year -> Month -> day] format.");
 
-        int year = 0;
-        int month = 0;
-        int day = 0;
-        try (Scanner scanner = new Scanner(System.in)) {
+        Scanner scanner = new Scanner(System.in);
+
+        int year, month, day;
+        try {
             year = scanner.nextInt();
             month = scanner.nextInt();
             day = scanner.nextInt();
@@ -59,15 +54,15 @@ public final class AgeInfo {
             return;
         }
 
-        Sapling sapling = null;
+        AgeInfo ageInfo;
         try {
-            sapling = new Sapling(year, Month.of(month), day);
+            ageInfo = new AgeInfo(year, Month.of(month), day);
         }
         catch (DateTimeException e) {
             System.err.println("[Error] " + e.getMessage());
             return;
         }
 
-        System.out.println(sapling.printInfo());
+        ageInfo.printAge();
     }
 }
