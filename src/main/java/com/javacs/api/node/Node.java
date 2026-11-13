@@ -1,5 +1,7 @@
 package com.javacs.api.node;
 
+import java.util.Objects;
+
 /*
  * [data | next] → [data | next] → [data | next] → null
  */
@@ -28,5 +30,16 @@ public final class Node<T> {
 
     @Override public String toString() {
         return String.valueOf(data);
+    }
+
+    @Override public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        Node<?> node = (Node<?>) object;
+
+        // Compare the actual state:
+        return Objects.equals(this.data, node.data)
+                && Objects.equals(this.next, node.next);
     }
 }
