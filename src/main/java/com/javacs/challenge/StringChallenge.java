@@ -2,7 +2,6 @@ package com.javacs.challenge;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -218,7 +217,30 @@ public class StringChallenge {
         return sb.length() < string.length() ? sb.toString() : string;
     }
 
+    public static boolean isReverse(String s1, String s2) {
+        Objects.requireNonNull(s1);
+        Objects.requireNonNull(s2);
+
+        String s1Normalize = s1
+                .replaceAll("[\\s.,!?;:]", "")
+                .toLowerCase();
+        if (s1Normalize.length() != s2.length()) return false;
+
+        char[] rotated = new char[s1Normalize.length()];
+        int index = 0;
+        for (int i = s1Normalize.length() - 1; i >= 0; i--) {
+            rotated[index] = s1Normalize.charAt(i);
+            index++;
+        }
+
+        for (int i = 0; i < s1Normalize.length(); i++)
+            if (rotated[i] != s2.charAt(i)) return false;
+
+        return true;
+    }
+
     public static void main(String[] args) {
-        stringCompressor("aabcccccaaa");
+        if (isReverse("waterbottle", "elttobretaw")) System.out.println("true");
+        else System.out.println("false");
     }
 }
