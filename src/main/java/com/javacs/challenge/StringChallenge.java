@@ -2,6 +2,7 @@ package com.javacs.challenge;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -125,7 +126,27 @@ public class StringChallenge {
         System.out.println("Repeated chars: " + sb.toString().trim());
     }
 
-    public static void main(String[] args) {
+    public static String stringCompressor(@NotNull String string) {
+        Objects.requireNonNull(string, "input must not be null");
 
+        if (string.isEmpty()) return string;
+
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+
+        for (int i = 1; i < string.length(); i++) {
+            if (string.charAt(i) == string.charAt(i - 1)) count++;
+            else {
+                sb.append(string.charAt(i - 1)).append(count);
+                count = 1;
+            }
+        }
+        sb.append(string.charAt(string.length() - 1)).append(count);
+
+        return sb.length() < string.length() ? sb.toString() : string;
+    }
+
+    public static void main(String[] args) {
+        stringCompressor("aabcccccaaa");
     }
 }
