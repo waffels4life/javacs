@@ -41,6 +41,19 @@ public class StringChallenge {
         System.out.println(result);
     }
 
+    public static void repeatedCharsFast(@NotNull String string) {
+        Objects.requireNonNull(string);
+        int[] freq = new int[128];
+        for (char c : string.toLowerCase().toCharArray())
+            if (Character.isLetterOrDigit(c)) freq[c]++;
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < freq.length; i++)
+            if (freq[i] > 1) sb.append((char) i).append(' ');
+
+        System.out.println("Repeated chars: " + sb.toString().trim());
+    }
+
     public static void main(String[] args) {
         repeatedChars("Hello, world.,,,");
         repeatedChars("aabcccccaaa");
