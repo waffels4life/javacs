@@ -126,6 +126,78 @@ public class StringChallenge {
         System.out.println("Repeated chars: " + sb.toString().trim());
     }
 
+    /*
+     * 1. READ THE SPEC CAREFULLY: TWO DIFFERENT ALGORITHMS
+     *    "Compression" here means RUN-LENGTH ENCODING:
+     *      "aabcccccaaa" -> "a2b1c5a3"
+     *    That is NOT the same as counting TOTAL FREQUENCY:
+     *      "aabcccccaaa" -> "a5b1c5"   (wrong for this task)
+     *    RLE tracks CONSECUTIVE runs; frequency counting ignores
+     *    order. Mixing them up silently produces a wrong answer
+     *    that still "looks compressed".
+     *
+     * 2. int[128] IS ONLY SAFE FOR ASCII
+     *    Character.isLetterOrDigit(c) accepts Unicode letters
+     *    (é, آ, ٣, ...). Their code points are > 127, so
+     *    freq[c]++ throws ArrayIndexOutOfBoundsException.
+     *    Example that crashes: stringCompressor("café")
+     *    Either restrict input to ASCII explicitly, or switch to
+     *    HashMap<Character, Integer>.
+     *
+     * 3. freq[(char) i] WORKS BUT IS MISLEADING
+     *    Java promotes char -> int automatically, so it compiles
+     *    and runs. But it hides intent, breaks if freq ever
+     *    becomes a Map, and confuses readers.
+     *    Write freq[i]. Save casts for when they matter.
+     *
+     * 4. THE CONTRACT HAS A FALLBACK — IMPLEMENT IT
+     *    Spec: "if compressed is not shorter than the original,
+     *    return the original." This is part of the CONTRACT,
+     *    not an optimization. Omitting it returns a longer string
+     *    for inputs like "abc" (-> "a1b1c1").
+     *    Rule: sb.length() < original.length() ? compressed : original
+     *
+     * 5. DON'T FORGET THE LAST RUN
+     *    Classic RLE bug: the loop only flushes a run when the
+     *    next char differs. The final run has no "next char", so
+     *    it must be appended AFTER the loop. Skipping it loses
+     *    the tail of every input.
+     *
+     * 6. toLowerCase() CHANGES SEMANTICS — CHOOSE CONSCIOUSLY
+     *    Lower-casing before RLE merges "Aa" into one run "a2".
+     *    That may be desired for frequency counting, but for RLE
+     *    it usually destroys information. Decide per task; don't
+     *    copy-paste normalization from a previous exercise.
+     *
+     * 7. requireNonNull WITH A MESSAGE
+     *    Objects.requireNonNull(string) gives a bare NPE with no
+     *    context. Pass a message:
+     *      Objects.requireNonNull(string, "input must not be null")
+     *    Saves minutes during debugging.
+     *
+     * 8. trim() ON A StringBuilder WITH NO SPACES IS NOISE
+     *    If the builder never contains whitespace, trim() is dead
+     *    code. Build output correctly from the start instead of
+     *    cleaning it up afterwards.
+     *
+     * 9. RLE TIME/SPACE
+     *    Single pass: O(n) time, O(n) space for the builder.
+     *    No need for a frequency array at all — RLE is streaming
+     *    and only needs "current char + run length".
+     *    If you find yourself allocating int[128], ask whether the
+     *    algorithm actually needs random-access counting.
+     *
+     * 10. TEST TABLE THAT EXPOSES THE BUGS ABOVE
+     *     "aabcccccaaa" -> "a2b1c5a3"   (basic RLE)
+     *     "abc"         -> "abc"        (fallback: not shorter)
+     *     "aabbcc"      -> "aabbcc"     (equal length -> original)
+     *     "aaa"         -> "a3"         (shorter -> compressed)
+     *     "a"           -> "a"          (single char, last-run bug)
+     *     ""            -> ""           (empty edge case)
+     *     "AaA"         -> "AaA"        (case sensitivity)
+     *     "café"        -> must not crash (Unicode safety)
+     * ============================================================
+     */
     public static String stringCompressor(@NotNull String string) {
         Objects.requireNonNull(string, "input must not be null");
 
