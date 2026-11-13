@@ -239,6 +239,10 @@ public class StringChallenge {
         return true;
     }
 
+    public static boolean isReverseFast(@NotNull String s1, @NotNull String s2) {
+        return new StringBuilder(s1).reverse().toString().equals(s2);
+    }
+
     public static void main(String[] args) {
         if (isReverse("waterbottle", "elttobretaw")) System.out.println("true");
         else System.out.println("false");
