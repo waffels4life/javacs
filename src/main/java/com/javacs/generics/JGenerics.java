@@ -3,6 +3,7 @@ package com.javacs.generics;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -45,4 +46,12 @@ public interface JGenerics {
             Function<? super T, ? extends R> function,
             Consumer<? super R> consumer
     );
+
+    <T extends Number> void q14(T t1, T t2);
+
+    <T, R extends Number> void q15(Function<? super T, ? extends R> function);
+
+    <T extends R, R> void q16();
+
+    void q17(Map<String, ? extends Number> map);
 }
