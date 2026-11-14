@@ -54,4 +54,20 @@ public interface JGenerics {
     <T extends R, R> void q16();
 
     void q17(Map<String, ? extends Number> map);
+
+    <K extends Comparable<? super K>, V> void q18(Map<? extends K, ? extends V> map);
+
+    <T, R> void q19(Collection<? extends T> collection,
+                    Function<? super T, ? extends R> function,
+                    Predicate<? super R> predicate
+    );
+
+    <T extends Number> void q20(Supplier<? extends T> supplier);
+
+    <T extends R, R> void q21(Consumer<? super R> consumer);
+
+    <T, R> List<R> q22(
+            Collection<? extends T> collection,
+            Function<? super T, ? extends R> function
+    );
 }
