@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+@SuppressWarnings("all")
 public interface JGenerics {
 
     <T> void upperBound(List<? extends T> list);
@@ -69,5 +71,27 @@ public interface JGenerics {
     <T, R> List<R> q22(
             Collection<? extends T> collection,
             Function<? super T, ? extends R> function
+    );
+
+    <T> void genericCopy(
+            Collection<? extends T> source,     // creates data -> extends
+            Collection<? super T> destination   // recived data -> super
+    );
+
+    <T> T maximum(
+            Collection<? extends T> collection,
+            Comparator<? super T> comparator
+    );
+
+    <T, R> R transform(Function<? super T, ? extends R> function, T t);
+    // Function<Number, Integer> function = Number::intValue;
+
+    <T> T[] genericArrayFactory(IntFunction<? extends T[]> intFunction);
+    // IntFunction<Integer[]> factory = Integer[]::new;
+
+    <T extends Number, R> List<R> boundedGenericPipeline(
+            Collection<? extends T> collection,
+            Function<? super T, ? extends R> function,
+            Predicate<? super R> predicate
     );
 }
