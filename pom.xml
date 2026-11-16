@@ -11,18 +11,27 @@
     <properties>
         <maven.compiler.release>22</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jetbrains.annotations.version>26.0.2</jetbrains.annotations.version>
+        <junit.jupiter.version>5.13.1</junit.jupiter.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>26.0.2</version>
+            <version>${jetbrains.annotations.version}</version>
+            <scope>provided</scope>
+            <!--
+            compile   -> main code, tests, runtime (default)
+            provided  -> main code, tests (NOT at runtime)
+            runtime   -> tests, runtime (NOT for compiling main code)
+            test      -> tests only
+            -->
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.13.1</version>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
