@@ -1,14 +1,20 @@
 package com.javacs.projects.monody;
 
-import java.lang.reflect.Array;
+import com.javacs.projects.RandomWords;
+
 import java.util.Arrays;
 import java.util.Random;
 
 public class BirthdayExperiment {
     public static void main(String[] args) {
 
-        calculateCollision(createArray(50, 100));
+        String[] words = new RandomWords().start(100);
+        int[] hash = toHashArray(words);
+
+        Arrays.stream(hash).forEach(System.out::println);
     }
+
+
 
     private static int[] createArray(int size, int bound) {
         if (size <= 0 || bound <= 0)
@@ -26,13 +32,13 @@ public class BirthdayExperiment {
         return randomNumbers;
     }
 
-    private static int[] toHashArray(int[] array) {
+    private static int[] toHashArray(String[] array) {
         int[] hashArray = new int[array.length];
 
         for (int i = 0; i < array.length; i++)
-            hashArray[i] = Integer.hashCode(array[i]);
+            hashArray[i] = array[i].hashCode();
 
-        return hashArray.clone();
+        return hashArray;
     }
 
     private static void calculateCollision(int[] array) {
