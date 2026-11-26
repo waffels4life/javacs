@@ -52,6 +52,27 @@ public class BankAccount {
         }
     }
 
+    public boolean withdrawWithTryLock(long amount) {
+        if (amount <= 0)
+            throw new IllegalArgumentException(
+                    "Withdraw amount cannot be negative or zero."
+            );
+
+        if (lock.tryLock()) {
+            try {
+                if (this.balance < amount ) return false;
+
+                this.balance -= amount;
+                return true;
+            }
+            finally {
+                lock.unlock();
+            }
+        }
+
+        return false;
+    }
+
     public long getBalance() {
         lock.lock();
         try {
