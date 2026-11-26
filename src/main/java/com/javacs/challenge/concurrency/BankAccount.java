@@ -1,5 +1,7 @@
 package com.javacs.challenge.concurrency;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -58,5 +60,21 @@ public class BankAccount {
         finally {
             lock.unlock();
         }
+    }
+
+    public static void main(String[] args) {
+        BankAccount bankAccount = new BankAccount(100_000);
+        try (ExecutorService executorService = Executors.newFixedThreadPool(20)) {
+            for (int i = 0; i < 10_000; i++)
+                executorService.submit(() ->
+                        bankAccount.deposit(10)
+                );
+            for (int i = 0; i < 10_000; i++)
+                executorService.submit(() ->
+                        bankAccount.withdraw(10)
+                );
+        }
+
+        System.out.println(bankAccount.getBalance());
     }
 }
