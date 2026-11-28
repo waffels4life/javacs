@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class JArrayList {
+public class JArrayList<T> {
 
     private static final List<Integer> list = List.of(1, 2, 3, 4, 4, 5, 1, 3);
     @Contract("_ -> new")
@@ -49,6 +49,46 @@ public class JArrayList {
         }
 
         System.out.println("Min: " + min + ", Max: " + max);
+    }
+
+    /**
+     * <h5>List[T]</h5>
+     * <p>The list interface is a part of java.util package.</p>
+     * <p>Represent an order collection of elements and maintain that orders.</p>
+     * <p>It allows duplicate elements and multiple null values in implementation.</p>
+     */
+
+
+    List<T> mylist = new ArrayList<T>();
+    private void mainMethods() {
+        List<Integer> integerList = new ArrayList<>();
+
+        // adding elements
+        for (int i = 0; i < 10; i++)
+            integerList.add(i);
+
+        // add all
+        integerList.addAll(new ArrayList<>(Arrays.asList(1,2,3)));
+
+        // insert at specific index
+        integerList.add(1, 4);
+        System.out.println("Element at index 0: " + integerList.getFirst());
+
+        // update element in specific index
+        integerList.set(2, 5);
+
+        // remove an element by index
+        integerList.removeFirst();
+        // integerList.remove(0);
+
+        // checks an element
+        boolean b = integerList.contains(0b10);
+
+        // index of an element
+        int index = integerList.indexOf(4);
+        int lastIndex = integerList.lastIndexOf(5);
+
+
     }
 
     public static void main(String[] args) {
